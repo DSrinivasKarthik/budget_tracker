@@ -12,13 +12,19 @@ function ExpenseTable({ section, selectedSubsection, expenses, onUpdateExpense, 
 
   const handleEditClick = (index) => {
     setEditableIndex(index);
-    // Create a copy of the expense for editing
-    setUpdatedExpense({ ...expenses[index] });
+    setUpdatedExpense(expenses[index]);
   };
 
   const handleSaveClick = () => {
     onUpdateExpense(updatedExpense);
     setEditableIndex(null);
+    setUpdatedExpense({
+      particulars: '',
+      billNo: '',
+      billDate: '',
+      amount: 0,
+      sectionInCharge: '',
+    });
   };
 
   const handleDeleteClick = (expenseId) => {
@@ -135,7 +141,6 @@ function ExpenseTable({ section, selectedSubsection, expenses, onUpdateExpense, 
                 ) : (
                   <>
                     <button onClick={() => handleEditClick(index)}>Edit</button>
-                    &nbsp;
                     <button onClick={() => handleDeleteClick(expense.id)}>Delete</button>
                   </>
                 )}

@@ -2,10 +2,18 @@ import React from 'react';
 
 function AccountSection({ section, onSectionSelected }) {
   return (
-    <div className="account-section">
-      <h3>{section.name}</h3>
-      <p>Budget: ₹{section.budget}</p>
-      <button onClick={() => onSectionSelected(section)}>Select</button>
+    <div>
+      <label>
+        Select Account Section:
+        <select onChange={(e) => onSectionSelected(e.target.value)}>
+          <option value="" disabled>Select an Account Section</option>
+          {section.map((section, index) => (
+            <option key={index} value={section.name}>
+              {section.name}
+            </option>
+          ))}
+        </select>
+      </label>
     </div>
   );
 }

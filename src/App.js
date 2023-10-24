@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import AccountSection from './AccountSection';
 import ExpenseForm from './ExpenseForm';
 import ExpenseTable from './ExpenseTable';
 import jsonData from './data.json';
@@ -134,14 +133,26 @@ function App() {
       {/* Render AccountSection */}
       <div className="section-selection">
         <h2>Select Account Section:</h2>
-        {sections.map((section, index) => (
-        <AccountSection
-          key={index}
-          section={section}
-          onSectionSelected={() => setSelectedSection(section)}
-        />
-      ))}
-     </div>
+        <select
+          value={selectedSection ? selectedSection.name : ''}
+          onChange={(e) => {
+            const selectedSection = sections.find(
+              (section) => section.name === e.target.value
+            );
+            setSelectedSection(selectedSection);
+          }}
+          required
+        >
+          <option value="" disabled>
+            Select an Account Section
+          </option>
+          {sections.map((section, index) => (
+            <option key={index} value={section.name}>
+              {section.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {/* Display subsection selection dropdown when an account section is selected */}
       {selectedSection && (
